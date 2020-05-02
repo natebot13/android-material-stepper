@@ -1,3 +1,5 @@
+import com.android.ddmlib.DdmPreferences
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -5,20 +7,19 @@ apply from: "$rootDir.path/config/project_properties.gradle"
 apply from: '../sample/code_coverage.gradle'
 
 android {
-    compileSdkVersion project.androidCompileSdkVersion
-    buildToolsVersion("$androidBuildToolsVersion")
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "com.stepstone.stepper.sample"
-        minSdkVersion project.androidMinSdkVersion
-        targetSdkVersion project.androidTargetSdkVersion
+        minSdkVersion 25
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "com.stepstone.stepper.sample.test.runner.TestButlerRunner"
-        com.android.ddmlib.DdmPreferences.setTimeOut(60000)
+        DdmPreferences.setTimeOut(60000)
     }
     buildTypes {
         release {
@@ -38,38 +39,47 @@ android {
     adbOptions {
         installOptions getAdbInstallOptions()
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.72"
 
     implementation project(':material-stepper')
-    implementation "com.android.support:appcompat-v7:$androidSupportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$androidSupportLibraryVersion"
-    implementation "com.android.support:design:$androidSupportLibraryVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
-    implementation "com.jakewharton:butterknife:$butterknifeVersion"
-    kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+    implementation "com.jakewharton:butterknife:10.2.1"
+    kapt "com.jakewharton:butterknife-compiler:10.2.1"
 
-    implementation "uk.co.chrisjenx:calligraphy:$calligraphyVersion"
+    implementation "uk.co.chrisjenx:calligraphy:2.3.0"
 
     androidTestImplementation project(':espresso-material-stepper')
 
-    androidTestImplementation "com.android.support.test:runner:$supportTestVersion"
-    androidTestImplementation "com.android.support.test:rules:$supportTestVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoVersion"
-    androidTestImplementation "com.linkedin.testbutler:test-butler-library:$testButlerVersion"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:rules:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation "com.linkedin.testbutler:test-butler-library:2.1.0"
 
-    androidTestUtil "com.linkedin.testbutler:test-butler-app:$testButlerVersion@apk"
-    androidTestImplementation("com.android.support:support-annotations:$androidSupportLibraryVersion") {
+    androidTestUtil "com.linkedin.testbutler:test-butler-app:2.1.0@apk"
+    androidTestImplementation('androidx.annotation:annotation:1.0.0') {
         force = true
     }
-    androidTestImplementation("com.android.support:support-v4:$androidSupportLibraryVersion") {
+    androidTestImplementation('androidx.legacy:legacy-support-v4:1.0.0') {
         force = true
     }
-    androidTestImplementation("com.android.support:appcompat-v7:$androidSupportLibraryVersion") {
+    androidTestImplementation('androidx.appcompat:appcompat:1.0.0') {
         force = true
     }
 }

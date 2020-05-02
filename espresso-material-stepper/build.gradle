@@ -2,12 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven'
 
 android {
-    compileSdkVersion project.androidCompileSdkVersion
-    buildToolsVersion("$androidBuildToolsVersion")
+    compileSdkVersion 29
 
     defaultConfig {
-        minSdkVersion project.androidMinSdkVersion
-        targetSdkVersion project.androidTargetSdkVersion
+        minSdkVersion 25
+        targetSdkVersion 29
     }
 
     lintOptions {
@@ -17,7 +16,7 @@ android {
 
 dependencies {
     api project(':material-stepper')
-    api "com.android.support.test.espresso:espresso-core:$espressoVersion"
+    api 'androidx.test.espresso:espresso-core:3.1.0'
 }
 
 gradle.taskGraph.beforeTask { Task task ->

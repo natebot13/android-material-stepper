@@ -17,8 +17,8 @@ limitations under the License.
 package com.stepstone.stepper.sample
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import butterknife.BindView
@@ -77,7 +77,7 @@ abstract class AbstractStepperActivity : AppCompatActivity(), StepperLayout.Step
     }
 
     override fun onStepSelected(newStepPosition: Int) {
-        Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "onStepSelected! -> $newStepPosition", Toast.LENGTH_SHORT).show()
     }
 
     override fun onReturn() {
